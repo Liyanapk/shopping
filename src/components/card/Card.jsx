@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import "./Card.css";
 import { DataContext } from "../../layout/DataProvider";
 import { BsCartCheckFill } from "react-icons/bs";
@@ -9,9 +9,6 @@ export const Card = () => {
   // Directly access data from context, no need for destructuring
   const data = useContext(DataContext);
 
-
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   const handleAddToCart = (item) => {
     try {
@@ -37,16 +34,12 @@ export const Card = () => {
 
       // Save updated cart to localStorage
       localStorage.setItem('cart_items', JSON.stringify(existingCart));
-      setSuccess("Item added to cart successfully!");
 
       // Navigate to cart page
       navigate('/cart');
 
-      // Clear success message after 3 seconds
-      setTimeout(() => setSuccess(""), 3000);
-
     } catch (err) {
-      setError(err.message);
+      console.error(err);
     }
   };
 

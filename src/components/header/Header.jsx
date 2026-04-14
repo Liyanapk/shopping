@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import "./Header.css"
 import { LoginModal } from "../login/Login";
 import { SighnUpModal } from "../sighnup/SighnUp";
-import { BsPerson } from "react-icons/bs";
 import { BsCart3 } from "react-icons/bs";
-import { PiChartBarHorizontalLight } from "react-icons/pi";
 import { useNavigate, Link } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 

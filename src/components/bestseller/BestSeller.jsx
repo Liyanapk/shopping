@@ -8,7 +8,7 @@ import { CategorySelector } from "../ctagoryslector/CategorySelector";
 export const BestSeller = () => {
   const data = useContext(DataContext);
 
-  const { filterData, handleCategoryClick } = CategorySelector(data);
+  const { handleCategoryClick } = CategorySelector(data);
 
 
 

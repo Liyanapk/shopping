@@ -7,7 +7,6 @@ export const LoginModal = ({ onClose }) => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
 
 
   const handleLogin = (e) => {
@@ -15,7 +14,6 @@ export const LoginModal = ({ onClose }) => {
 
     // Simple validation
     if (!email || !password) {
-      setError("Please fill in all fields")
       return
     }
 
