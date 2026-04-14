@@ -1,4 +1,7 @@
 import React from "react";
+import { Card } from "../card/Card";
+import Header from "../header/Header";
+import { Footer } from "../footer/Footer";
 
 
 export const ProductPage =()=>{
@@ -8,8 +11,9 @@ export const ProductPage =()=>{
     return(
 
         <div>
-
-            <h1>product</h1>
+            <Header />
+            <Card />
+            <Footer />
         </div>
     )
 }

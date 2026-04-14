@@ -1,119 +1,48 @@
 import React, { useEffect, useState } from "react";
 import './CartPage.css';
-import { jwtDecode } from 'jwt-decode';
 import Header from '../header/Header'
 
 export const CartPage = () => {
 
-    const [isLogin, setIsLogin] = useState(false);
     const [cartItem, setCartItem] = useState([]);
     const [error, setError] = useState('');
 
     useEffect(() => {
-        const userLogin = localStorage.getItem("access_token") ? true : false;
-        setIsLogin(userLogin);
-
-        if (userLogin) {
-            fetchCartItems();
-        }
+        fetchCartItems();
     }, []);
 
-    const fetchCartItems = async () => {
+    const fetchCartItems = () => {
         try {
-            const token = localStorage.getItem("access_token");
-            const decodedToken = jwtDecode(token);
-            const userId = decodedToken.userId;
-
-            const response = await fetch(`http://localhost:5000/api/v1/cart/${userId}`, {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error("Failed to fetch cart items.");
-            }
-
-            const data = await response.json();
-
-            if (data.data) {
-                setCartItem(data.data);
-            } else {
-                throw new Error("Cart data not found in the response.");
+            const cartData = localStorage.getItem('cart_items');
+            if (cartData) {
+                setCartItem(JSON.parse(cartData));
             }
         } catch (error) {
             setError(error.message);
         }
     };
 
-    const deleteCartItem = async (itemId) => {
+    const deleteCartItem = (itemId) => {
         try {
-            const token = localStorage.getItem("access_token");
-            const decodedToken = jwtDecode(token);
-            const userId = decodedToken.userId;
-
-            const response = await fetch(`http://localhost:5000/api/v1/cart/${itemId}`, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error("Failed to delete cart item.");
-            }
-
-            const data = await response.json();
-
-            if (data.data) {
-                setCartItem(data.data);
-            } else {
-                throw new Error("Failed to update cart after deletion.");
-            }
+            const updatedCart = cartItem.filter(item => item._id !== itemId);
+            setCartItem(updatedCart);
+            localStorage.setItem('cart_items', JSON.stringify(updatedCart));
         } catch (error) {
             setError(error.message);
         }
     };
 
-
-
-    const updatedQuantity = async (itemId, newQuantity) => {
-
+    const updatedQuantity = (itemId, newQuantity) => {
         try {
-
-            const token = localStorage.getItem('access_token')
-            const response = await fetch(`http://localhost:5000/api/v1/cart/${itemId}`, {
-
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-
-                },
-                body: JSON.stringify({ quantity: newQuantity }),
-
-            })
-
-            if (!response.ok) {
-                throw new Error("Failed update quantity.");
-
-            }
-
-            const data = await response.json()
-            if (data.data) {
-                setCartItem(data.data)
-            } else {
-                throw new Error("Failed to update cart after quantity update")
-            }
+            const updatedCart = cartItem.map(item =>
+                item._id === itemId ? { ...item, quantity: newQuantity } : item
+            );
+            setCartItem(updatedCart);
+            localStorage.setItem('cart_items', JSON.stringify(updatedCart));
         } catch (error) {
-            setError(error.message)
-
+            setError(error.message);
         }
-    }
-
-
+    };
 
     const handleIncrease = (itemId, currentQuantity) => {
         updatedQuantity(itemId, currentQuantity + 1)
@@ -160,7 +89,7 @@ export const CartPage = () => {
                                 <tr key={item._id}>
                                     <td className="image-title">
                                         <img
-                                            src={`http://localhost:5000/${item.product.image}`}
+                                            src={item.product.image}
                                             alt={item.product.name}
                                             className="cart-product-image"
                                         />
@@ -186,9 +115,11 @@ export const CartPage = () => {
                     </tbody>
                 </table>
 
+                {cartItem.length > 0 && (
                 <div className="grand-total">
                     <h3>GRAND TOTAL : ${grandTotal.toFixed(2)} </h3>
                 </div>
+                )}
 
             </div>
 

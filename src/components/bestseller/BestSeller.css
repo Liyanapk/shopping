@@ -1,8 +1,7 @@
 
   .seller-content {
     text-align: center;
-    padding-top: 4rem;
-   
+    padding-top: 2rem;
   }
 
 
@@ -10,8 +9,9 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap:2em;
-    padding-top: 3rem;
+    gap: 1.5rem;
+    padding-top: 2rem;
+    flex-wrap: wrap;
   }
   .catagery-list{
     display: flex;
@@ -52,6 +52,6 @@
     
   }
   .view-collection-button{
-    padding-top: 9rem;
+    padding-top: 2rem;
   }
   

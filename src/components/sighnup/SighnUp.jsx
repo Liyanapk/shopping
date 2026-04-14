@@ -32,40 +32,27 @@ export const SighnUpModal = ({ onClose })=>{
 
 
 
-  const handleSighnup = async(e)=>{
-         
+  const handleSighnup = (e) => {
     e.preventDefault()
 
-    try {
-
-      const response =await fetch('http://localhost:5000/api/v1/user/',{
-
-        method:"POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData), 
-      });
-
-      const data = await response.json(); 
-
-      if(response.ok){
-
-        localStorage.setItem("access_token",data.access_token)
-        onClose()
-
-      }else{
-        setError("Failed to login try again later!")
-      }
-      
+    // Simple validation
+    if (!userData.first_name || !userData.last_name || !userData.email || !userData.password) {
+      setError("Please fill in all required fields")
+      return
     }
 
-  catch (error) {
-    setError("Something wrong happened in login")
-  }
+    // Store user info in localStorage (demo authentication)
+    const userInfo = {
+      ...userData,
+      userId: Date.now().toString(), // Generate a fake user ID
+      signupTime: new Date().toISOString()
+    }
 
+    localStorage.setItem("access_token", JSON.stringify(userInfo))
+    localStorage.setItem("user_email", userData.email)
+    localStorage.setItem("user_name", `${userData.first_name} ${userData.last_name}`)
 
-
+    onClose()
   }
   
   

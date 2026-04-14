@@ -7,15 +7,15 @@
 .cart h1 {
     text-align: start;
     font-size: 28px;
-    margin-top: 4rem;
+    margin-top: 2rem;
     color: rgb(48, 51, 51);
-
 }
 
 .table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 1rem;
+    overflow-x: auto;
 }
 
 .table-head {
@@ -53,19 +53,17 @@ button:hover {
     width: 100px;
     height: 100px;
     object-fit: cover;
-
-
 }
 
 .image-title {
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    text-align: center;
+    min-width: 150px;
 }
 
 .quantity-button button {
-
     background-color: black;
     color: aliceblue;
     width: 20px;

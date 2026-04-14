@@ -9,13 +9,12 @@ header{
 .header{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    gap: 10em;
-   
-    
-    
-
+    gap: 2rem;
+    padding: 1rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 .logo img{
     width: 150px;
@@ -26,8 +25,11 @@ header{
 .navlist{
     display: flex;
     flex-direction: row;
-    gap: 1.5em;
-    
+    gap: 1.5rem;
+}
+
+.navitems {
+  display: none;
 }
 
 .list{
@@ -80,6 +82,7 @@ header{
     display: flex;
     flex-direction: row;
     gap:2em;
+    align-items: center;
 
 }
 
@@ -112,4 +115,138 @@ header{
     color: white;
     background-color: black;
 
+}
+
+.hamburger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #333;
+  padding: 0.5rem;
+}
+
+.navitems {
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+    position: relative;
+  }
+
+  .navitems {
+    display: flex;
+    position: fixed;
+    top: 70px;
+    right: -100%;
+    width: 250px;
+    height: calc(100vh - 70px);
+    background: white;
+    flex-direction: column;
+    padding: 2rem;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    transition: right 0.3s ease;
+  }
+
+  .navitems.mobile-menu-open {
+    right: 0;
+  }
+
+  .navlist {
+    flex-direction: column;
+    gap: 1.5rem;
+    font-size: 16px;
+  }
+
+  .list a {
+    color: #333;
+    font-size: 16px;
+  }
+
+  .mobile-auth button {
+    width: 100%;
+    margin-top: 0.5rem;
+    display: block;
+  }
+
+  .mobile-auth {
+    display: block;
+  }
+
+  .mobile-cart {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    color: #333;
+    font-size: 16px;
+  }
+
+  .mobile-cart .icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .icons {
+    display: none;
+  }
+
+  .auth-buttons {
+    display: none;
+  }
+
+  .login-btn, .signup-btn {
+    width: 70px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .logo img {
+    width: 120px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 0.75rem;
+  }
+
+  .navitems {
+    width: 200px;
+    top: 60px;
+    height: calc(100vh - 60px);
+  }
+
+  .navlist {
+    gap: 1rem;
+    font-size: 14px;
+    padding: 0;
+  }
+
+  .list a {
+    font-size: 14px;
+  }
+
+  .mobile-cart {
+    font-size: 14px;
+  }
+
+  .logo img {
+    width: 100px;
+    height: 20px;
+  }
+
+  .hamburger {
+    font-size: 24px;
+  }
 }

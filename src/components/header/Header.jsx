@@ -5,7 +5,8 @@ import { SighnUpModal } from "../sighnup/SighnUp";
 import { BsPerson } from "react-icons/bs";
 import { BsCart3 } from "react-icons/bs";
 import { PiChartBarHorizontalLight } from "react-icons/pi";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { FaBars } from 'react-icons/fa';
 
 
 
@@ -14,6 +15,7 @@ const Header = () => {
   const navigate = useNavigate()
   const [isLogin, setLogin] = useState(false)
   const [isSighnUp, setSihnup] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
     <header>
@@ -27,37 +29,52 @@ const Header = () => {
           ></img>
         </div>
 
+        <div className="hamburger" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          <FaBars />
+        </div>
 
-        <nav className="navitems">
+        <nav className={`navitems ${isMobileMenuOpen ? 'mobile-menu-open' : ''}`}>
           <ul className="navlist">
             <li className="list">
-              <a href="#">HOME</a>
+              <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>HOME</Link>
             </li>
+            {/* <li className="list">
+              <Link to="/product" onClick={() => setIsMobileMenuOpen(false)}>SHOP</Link>
+            </li> */}
             <li className="list">
-              <a href="#">SHOPE</a>
+              <Link to="/product" onClick={() => setIsMobileMenuOpen(false)}>PRODUCT</Link>
             </li>
-            <li className="list" onClick={() => navigate('/product')}>
-              PRODUCT
+            <li className="list mobile-cart" onClick={() => { navigate('/cart'); setIsMobileMenuOpen(false); }}>
+              <BsCart3 className="icon" /> Cart
+            </li>
+            <li className="list mobile-auth">
+              <button className="login-btn" onClick={() => { setLogin(true); setIsMobileMenuOpen(false); }}>
+                Login
+              </button>
+            </li>
+            <li className="list mobile-auth">
+              <button className="signup-btn" onClick={() => { setSihnup(true); setIsMobileMenuOpen(false); }}>Sign Up</button>
             </li>
           </ul>
         </nav>
 
 
-        <div className="icons">
-          <div>
-            <BsPerson className="icon" />
-          </div>
-          <div onClick={() => navigate('/cart')}>
-            <BsCart3 className="icon" />
-          </div>
-          <div>
-            <PiChartBarHorizontalLight className="icon" />
-          </div>
-        </div>
+
 
 
 
         <div className="auth-buttons">
+                  <div className="icons">
+          {/* <div>
+            <BsPerson className="icon" />
+          </div> */}
+          <div onClick={() => navigate('/cart')}>
+            <BsCart3 className="icon" />
+          </div>
+          {/* <div>
+            <PiChartBarHorizontalLight className="icon" />
+          </div> */}
+        </div>
           <button className="login-btn" onClick={() => setLogin(true)}>
             Login
           </button>

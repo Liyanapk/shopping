@@ -1,38 +1,14 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
+import { mockProducts } from "../data/mockProducts";
 
 
 export const DataContext = createContext()
 
 
-export const DataProvider = ({children}) =>{
+export const DataProvider = ({children})=>{
 
 
-    const[data, setData] = useState([])
-
-
-    useEffect(()=>{
-     
-        const fetchData = async ()=>{
-            try {
-                
-                const response = await fetch('http://localhost:5000/api/v1/product', {
-                    method: 'GET',
-                    credentials: 'include', // Ensures cookies or headers are sent
-                });
-                
-                const result = await response.json();
-                console.log(result.data);
-                
-                setData(result.data)
-            } catch (error) {
-                console.error("Error:", error);
-            }
-        }
-        fetchData();
-
-    },[])
-
-
+    const[data, setData] = useState(mockProducts)
 
 
     return(
